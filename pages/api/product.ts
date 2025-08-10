@@ -43,7 +43,7 @@
 // /api/products-by-category.ts
 export default async function handler(req, res) {
   //const { category } = req.query;
-  let allResults = [];
+  const allResults = [];
   let page = 1;
   let hasNext = true;
 
