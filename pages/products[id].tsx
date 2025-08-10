@@ -1,4 +1,4 @@
-/* eslint-disable @next/next/no-img-element */
+/* eslint-disable @next/next/no-img-element 
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { allProducts } from "../data/Categories";

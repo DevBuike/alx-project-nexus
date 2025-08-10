@@ -1,12 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import Image from 'next/image';
 import SearchBar from "../components/common/SearchBar";
 import { useCart } from "@/context/CartContext";
-import { ProductList, ProductsResponse } from "@/interface/Products";
-import ProductCard from "@/components/common/ProductCard";
-
+import { ProductLists, ProductsResponse } from "@/interface/Products";
 
 
 export async function getServerSideProps(context: { query: { page: any; }; }) {
@@ -47,7 +44,7 @@ export async function getServerSideProps(context: { query: { page: any; }; }) {
 
 
 export default function ProductsPage({products, count, currentPage, pageSize }: {
-  products: ProductList[];
+  products: ProductLists[];
   count: number;
   pageSize: number;
   currentPage: number;
@@ -95,7 +92,7 @@ export default function ProductsPage({products, count, currentPage, pageSize }: 
     }
   };
 
-  const handleAddToCart = (product: ProductList) => {
+  const handleAddToCart = (product: ProductLists) => {
     addToCart(product);
   };
 
@@ -108,13 +105,13 @@ export default function ProductsPage({products, count, currentPage, pageSize }: 
           <SearchBar onSearch={handleSearch} />
         </div>
 
-        <div className="grid grid-cols-2 md:flex flex-wrap gap-y-5 gap-2 lg:gap-x-10">
+        <div className="grid grid-cols-2 md:flex md:flex-wrap gap-y-5 gap-2 lg:gap-x-8">
           {message && <p>{message} </p>}
           {Array.isArray(filteredProducts) && filteredProducts.map((product) => (
-            <div className="flex space-x-6 " >
-              <Link
+            
+              <Link key={product.id}
                 href={`/products/${product.slug}`}
-                className="w-[170px] md:max-w-[220px] h-[320px] bg-neutral-50 rounded-lg shadow p-4 hover:shadow-md transition"
+                className="w-[170px] md:max-w-[220px] lg:w-[310px] h-[320px] bg-neutral-50 rounded-lg shadow p-4 hover:shadow-md transition"
               >
                 <div className=' mb-4 w-full'>
                   <img
@@ -144,7 +141,6 @@ export default function ProductsPage({products, count, currentPage, pageSize }: 
                     </button>
                 </div>
               </Link>
-            </div>
           ))}
         </div>
         <div className="flex justify-center mt-10 space-x-2">

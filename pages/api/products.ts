@@ -1,5 +1,5 @@
 export default async function handler(req, res) {
-  let allResults = [];
+  const allResults = [];
   let page = 1;
   let hasNext = true;
 

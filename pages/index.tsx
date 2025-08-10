@@ -7,8 +7,8 @@ import CategorySection from '@/components/common/CategorySection';
 import ProductCard from '@/components/common/ProductCard';
 
 export async function getServerSideProps() {
-  let products: any[] = [];
-  let categories: any[] = [];
+  const products: ProductList[] = [];
+  const categories: ProductList[] = [];
 
   let productPage = 1;
   let categoryPage = 1;
@@ -36,7 +36,7 @@ export async function getServerSideProps() {
     }
 
     // extracting the slugs of each product so i can get the full product detail and extract the category value
-    const slugs = products.map((p: any) => p.slug);
+    const slugs = products.map((p) => p.slug);
 
     // Fetch product detail by slug
     const detailedResponses = await Promise.all(

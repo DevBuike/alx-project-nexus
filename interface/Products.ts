@@ -20,6 +20,25 @@ export interface ProductList {
   created_at?: string;
 }
 
+export interface ProductLists {
+  id: number;
+  name: string;
+  slug: string;
+  description: string;
+  price: number;
+  primary_image: {
+    id: number;
+    image_url: string;
+    alt_text: string;
+  };
+  quantity: number;
+  compare_at_price?: string;
+  discount_percentage?: string;
+  average_rating?: number;
+  inventory_status?: string;
+  created_at?: string;
+}
+
 
 //each product interface
 export interface Product {
