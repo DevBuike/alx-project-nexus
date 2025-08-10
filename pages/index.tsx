@@ -4,6 +4,7 @@ import Link from "next/link";
 import ImageCarousel from "../components/common/ImageCarousel";
 import { ProductList, ProductDetail, CategoryList } from "@/interface/Products";
 import CategorySection from '@/components/common/CategorySection';
+import ProductCard from '@/components/common/ProductCard';
 
 export async function getServerSideProps() {
   let products: any[] = [];
@@ -71,9 +72,13 @@ export async function getServerSideProps() {
 }
 
 
-export default function Home({products, categories, detailedProducts}: {products: ProductList[], categories: CategoryList[], detailedProducts: ProductDetail[]}) {
-  const [featured, setFeatured] = useState(products);
+export default function Home({ categories, detailedProducts}: { categories: CategoryList[], detailedProducts: ProductDetail[]}) {
+  const [featured, setFeatured] = useState(detailedProducts);
   const [openMenu, setOpenMenu] = useState<string | null>(null);
+
+  const [minPrice, setMinPrice] = useState<number>(0);
+  const [maxPrice, setMaxPrice] = useState<number>(0);
+  const [filteredProducts, setFilteredProducts] = useState<ProductDetail[]>([]);
 
   const toggleMenu = (label: string) => {
     setOpenMenu((prev) => (prev === label ? null : label));
@@ -81,51 +86,53 @@ export default function Home({products, categories, detailedProducts}: {products
 
   //filtering the roducts based on the featured value
   useEffect(() => {
-    const featuredProducts = products.filter((product) => {
+    const featuredProducts = detailedProducts.filter((product) => {
       return product.is_featured;
     });
     setFeatured(featuredProducts);
-  }, [products]);
+  }, [detailedProducts]);
+
+  const filterProductsByPrice = () => {
+    if (minPrice === null && maxPrice === null) {
+      setFilteredProducts(detailedProducts);
+      return;
+    }
+    const filtered = detailedProducts.filter((product) => {
+      const price = product.price;
+      return (
+        (minPrice === null || price >= minPrice) &&
+        (maxPrice === null || price <= maxPrice)
+      );
+    });
+    setFilteredProducts(filtered);
+  };
 
   return (
-    <main className="text-black min-h-screen bg-neutral-50-100 from-yellow-50 via-white to-stone-100 py-12 px-6">
-      <div className="max-w-7xl mx-auto flex flex-row items-start gap-8">
-        {/* Sidebar */}
-        <ul className="hidden md:flex flex-col space-y-2 p-4 bg-neutral-50 rounded shadow max-w-sm w-64">
-          {categories.map((category) => (
-            <li key={category.id}>
-              <div
-                className="flex items-center justify-between cursor-pointer font-medium hover:text-yellow-500 transition"
-                onClick={() => toggleMenu(category.name)}
-              >
-                <span>{category.name}</span>
-                <span className="text-sm ml-2">{openMenu === category.name ? "▼" : "›"}</span>
-              </div>
-              {openMenu === category.name && (
-                <ul className="ml-4 mt-2 pl-2 border-l border-gray-200 space-y-1">
-                  {/* {items.map(({ name, href }) => (
-                    <li key={name}>
-                      <Link
-                        href={href}
-                        className="block text-sm text-gray-700 hover:text-yellow-500 transition px-1 py-1"
-                      >
-                        {name}
-                      </Link>
-                    </li>
-                  ))} */}
-                </ul>
-              )}
-            </li>
-          ))}
-        </ul>
+    <div className="text-black min-h-screen bg-neutral-50-100 from-yellow-50 via-white to-stone-100 pb-12 px-6 md:px-10 lg:px-20 ">
 
+      {/* Sidebar */}
+      <ul className="w-full flex items-center gap-8 p-4 mb-5 bg-neutral-50 rounded shadow overflow-x-auto">
+        {categories.map((category) => (
+          <li key={category.id}>
+            <Link href={category.slug}
+              className="flex items-center justify-between cursor-pointer font-medium hover:text-yellow-500 transition"
+              onClick={() => toggleMenu(category.name)}
+            >
+              <span>{category.name}</span>
+              <span className="text-sm ml-2"> ›</span>
+            </Link>
+          </li>
+        ))}
+      </ul>
+      <div className="max-w-7xl mx-auto flex flex-row items-start gap-8">
+        
         {/* Carousel */}
         <div className="flex-1">
           <ImageCarousel
             images={[
-              "../public/assets/carousel/img-1.gif",
-              "../public/assets/carousel/img-2.gif",
-              "../public/assets/carousel/img-3.gif",
+              "../public/assets/carousel/img-1.png",
+              "../public/assets/carousel/img-2.png",
+              "../public/assets/carousel/img-3.jpg",
               "../public/assets/carousel/img-4.jpg",
               "../public/assets/carousel/img-5.gif",
             ]}
@@ -133,63 +140,98 @@ export default function Home({products, categories, detailedProducts}: {products
         </div>
       </div>
 
-      {/* featured Products section */}
-      <div className="max-w-7xl mx-auto mt-12 space-y-12">
-        <div className="flex items-center justify-between mb-3">
-          <h2 className="text-xl font-bold text-gray-800">Featured Products</h2>
-          <Link href="/products" className="text-blue-600 hover:underline text-sm">
-            See All
-          </Link>
+      {/* Search and Filter Section */}
+      <div className="mt-20">
+        <div className="max-w-[600px] mx-auto flex gap-2 items-center mt-8 mb-4">
+          <h1 className="text-sm text-gray-800">Filter By Price:</h1>
+          <div className="flex items-center gap-4">
+            <input
+              type="number"
+              placeholder="Min Price"
+              className="px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-yellow-500 max-w-[90px] md:max-w-[170px]"
+              onChange={(e) => setMinPrice(Number(e.target.value))}
+            />
+            <input
+              type="number"
+              placeholder="Max Price"
+              className="px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-yellow-500 max-w-[90px] md:max-w-[170px]"
+              onChange={(e) => setMaxPrice(Number(e.target.value))}
+            />
+            <button className="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600 transition" onClick={filterProductsByPrice}>
+              Search
+            </button>
+          </div>
         </div>
-        <div className="flex flex-col md:flex-row gap-4 overflow-x-auto py-5">
-          {featured.map((product) => (
-            <div className="" key={product.id}>
-              <div className="flex space-x-6">
-                <Link
-                  
-                  href={`/products/${product.slug}`}
-                  className="min-w-[220px] bg-neutral-50 rounded-lg shadow p-4 hover:shadow-md transition"
-                >
-                  <div>
-                    <img
-                      src={product.primary_image.image_url}
-                      alt={product.name}
-                      className="w-full h-36 object-cover mb-2 rounded"
-                    />
-                    <p className="text-sm font-medium text-gray-800">{product.name}</p>
-                    <p className="text-green-600 font-bold">{product.price}</p>
-                  </div>
-                </Link>
-              </div>
-            </div>
+      </div>
+
+      {/* featured Products section */}
+      <div className="max-w-7xl mx-auto mt-10 bg-[#dfdfdf] py-10 rounded px-2">
+        <h2 className="text-xl lg:text-[30px] text-center font-bold text-gray-800 mb-10">Featured Products</h2>
+        <div className="flex gap-4 overflow-x-auto py-5">
+          {featured.slice().reverse().map((product) => (
+            <ProductCard key={product.id} product={product} />
           ))}
         </div>
       </div>
 
+      <div className="bg-[url('/assets/bg/ecom-bg.jpg')] w-full h-[300px] bg-no-repeat bg-center bg-cover py-30">
+        <div className="">
+          <h3 className="text-white font-semibold text-2xl text-center">FLASH SALE | 30% Off Starts NOW!</h3>
+          <p></p>
+        </div>
+      </div>
+
       {/*displaying products based on categories */}
-      <CategorySection
+      <div className="mt-20">
+        <h3 className="text-center my-8 text-xl font-semibold">Explore our Categories</h3>
+        <CategorySection
         title="Clothing"
         categoryNames={['Jackets', 'Suits', 'Shirts']}
-        products={detailedProducts}
-      />
+        products={filteredProducts.length > 0 ? filteredProducts : detailedProducts}
+        />
 
-      <CategorySection
-        title="Home Appliances"
-        categoryNames={['Home Appliances']}
-        products={detailedProducts}
-      />
+        <CategorySection
+          title="Home Appliances"
+          categoryNames={['Home Appliances']}
+          products={filteredProducts.length > 0 ? filteredProducts : detailedProducts}
+        />
 
-      <CategorySection
-        title="Health & Beauty"
-        categoryNames={['Fragrance', 'Hygeine']}
-        products={detailedProducts}
-      />
+        <CategorySection
+          title="Health & Beauty"
+          categoryNames={['Fragrance', 'Hygeine']}
+          products={filteredProducts.length > 0 ? filteredProducts : detailedProducts}
+        />
 
-      <CategorySection
-        title="Home "
-        categoryNames={['Bedding']}
-        products={detailedProducts}
-      />
-    </main>
+        <CategorySection
+          title="Home "
+          categoryNames={['Bedding']}
+          products={filteredProducts.length > 0 ? filteredProducts : detailedProducts}
+        />
+      </div>
+
+      {/* Newsletter Subscription Section */}
+      <div className="mt-20 bg-[#dfdfdf] py-5">
+        <div className=" lg:w-[70%] mx-auto flex flex-col gap-2 items-center mt-5 mb-4">
+          <h1 className="text-sm text-gray-800 mb-3">Subscribe to our Newsletter </h1>
+          <div className="flex flex-col md:flex-row items-center gap-4">
+            <input
+              type="text"
+              placeholder="Enter Your Name"
+              className="px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-yellow-500"
+            />
+            <input
+              type="email"
+              placeholder="Enter Your Email"
+              className="px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-yellow-500"
+            />
+            <button className="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600 transition" onClick={() => {
+              alert('Thank you for subscribing! We will keep you updated with the latest products and offers.');
+            }}>
+              Subscribe
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }

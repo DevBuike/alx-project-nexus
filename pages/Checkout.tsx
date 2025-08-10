@@ -9,7 +9,7 @@ export default function CheckoutPage() {
 
   const handleCheckout = () => {
     const existingOrders = JSON.parse(localStorage.getItem("orders") || "[]");
-    const orderId = `ORD${Date.now().toString().slice(-6)}`;
+    const orderId = crypto.randomUUID();
 
     const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 

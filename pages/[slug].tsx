@@ -3,39 +3,74 @@
 import { useRouter } from "next/router";
 import { GetServerSideProps } from "next";
 import Link from "next/link";
+import {ProductDetail} from "@/interface/Products";
+import { useEffect, useState } from "react";
+import ProductCard from "@/components/common/ProductCard";
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  let allResults = [];
-  let page = 1;
-  let hasNext = true;
+export async function getServerSideProps() {
+  let products: any[] = [];
+  let categories: any[] = [];
 
-  const { slug } = context.query;
-  const searchTerm = Array.isArray(slug) ? slug[slug.length -1] : slug;
+  let productPage = 1;
+  let categoryPage = 1;
+
+  let hasNextProduct = true;
+  let hasNextCategory = true;
 
   try {
-    while (hasNext) {
-      const queryParam = searchTerm ? `search=${encodeURIComponent(searchTerm)}` : '';
-      const response = await fetch(`https://alx-project-nexus-psi.vercel.app/api/v1/products/?${queryParam}&page=${page}`);
+    while (hasNextProduct) {
+      const response = await fetch(`https://alx-project-nexus-psi.vercel.app/api/v1/products/?page=${productPage}`);
       const data = await response.json();
 
-      allResults.push(...data.results);
-      hasNext = !!data.links?.next;
-      page += 1;
+      products.push(...data.results);
+      hasNextProduct = !!data.links?.next;
+      productPage += 1;
     }
 
-    const products = allResults;
+    while (hasNextCategory) {
+      const response = await fetch(`https://alx-project-nexus-psi.vercel.app/api/v1/categories/?page=${categoryPage}`);
+      const data = await response.json();
+
+      categories.push(...data.results);
+      hasNextCategory = !!data.links?.next;
+      categoryPage += 1;
+    }
+
+    // extracting the slugs of each product so i can get the full product detail and extract the category value
+    const slugs = products.map((p: any) => p.slug);
+
+    // Fetch product detail by slug
+    const detailedResponses = await Promise.all(
+      slugs.map(async (slug) => {
+        try {
+          const response = await fetch(`https://alx-project-nexus-psi.vercel.app/api/v1/products/${slug}/`);
+          return await response.json();
+        } catch {
+          return null;
+        }
+      })
+    );
+
+    // filter products that may return empty..
+    const detailedProducts = detailedResponses.filter(Boolean);
+
     return {
       props: {
         products,
+        categories,
+        detailedProducts,
       }
-    }
-
-    //res.status(200).json({ results: allResults });
+    };
   } catch (error) {
-    //res.status(500).json({ error: "Failed to fetch products." });
-    console.log('error fetching products');
+    return {
+      props: {
+        products: [],
+        categories: [],
+        detailedProducts: [],
+      }
+    };
   }
-};
+}
 
 const allProducts = [
   // Electronics - Mobiles
@@ -60,41 +95,30 @@ const allProducts = [
   { id: "h-b-5", title: "Kids Bed With Storage", category: "home", subcategory: "beds", price: "KSh 25,000", image: "/images/products/kids-bed.jpg" },
 ];
 
-export default function CategoryPage({products}) {
+export default function CategoryPage({detailedProducts}: {detailedProducts: ProductDetail[]}) {
   const router = useRouter();
+  const [products, setProducts] = useState<ProductDetail[]>([]);
   const { slug } = router.query;
-  const [category, subcategory] = Array.isArray(slug) ? slug : [];
 
-  console.log(products);
-  const filtered = allProducts.filter(
-    (p) => p.category === category && p.subcategory === subcategory
-  );
+  useEffect(() => {
+    const filtered = detailedProducts.filter(
+      (p) => p.category.slug === slug
+    );
+    setProducts(filtered);
+  }, [detailedProducts, slug]);
 
   return (
     <main className="p-6 bg-gray-500 min-h-screen text-black">
-      <h1 className="text-2xl font-bold mb-6 capitalize">
-        {subcategory ? `${subcategory} in ${category}` : "Category"}
+      <h1 className="text-2xl font-bold mb-6 capitalize text-center mt-10">
+        Products in {slug?.toString().replace(/-/g, ' ')}
       </h1>
 
       {products.length === 0 ? (
-        <p className="text-gray-600">No products found in this category.</p>
+        <p className="text-gray-600 text-center">No products found in this category.</p>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        <div className="flex flex-wrap gap-5 mt-10">
           {products.map((p) => (
-            <Link href={`/products/${p.slug}`} key={p.id}>
-              <div className="bg-gray-500 rounded shadow p-4 hover:shadow-lg cursor-pointer">
-                <img
-                  src={p.primary_image.image_url}
-                  alt={p.name}
-                  className="w-full h-40 object-cover rounded mb-3"
-                />
-                <h2 className="text-lg font-semibold mb-1">{p.name}</h2>
-                <p className="text-green-600 font-bold mb-2">{p.price}</p>
-                <button className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
-                  Add to Cart
-                </button>
-              </div>
-            </Link>
+            <ProductCard product={p} key={p.id} />
           ))}
         </div>
       )}

@@ -49,9 +49,9 @@ export default function Orders() {
         {orders.length === 0 ? (
           <p className="text-gray-600">You have no orders yet.</p>
         ) : (
-          <div className="overflow-x-auto">
-            <table className="min-w-full bg-neutral-50 border rounded shadow-sm">
-              <thead className="bg-gray-100 text-left">
+          <div className="overflow-x-auto rounded-lg">
+            <table className="min-w-full bg-neutral-100 rounded shadow-lg">
+              <thead className="bg-gray-200 text-left">
                 <tr>
                   <th className="p-4 text-sm font-semibold">Order ID</th>
                   <th className="p-4 text-sm font-semibold">Date</th>
@@ -67,7 +67,7 @@ export default function Orders() {
                       <td className="p-4 text-sm">{order.id}</td>
                       <td className="p-4 text-sm">{order.date}</td>
                       <td className="p-4 text-sm">
-                        KSh {order.total.toLocaleString(undefined, {
+                        $ {order.total.toLocaleString(undefined, {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2,
                         })}

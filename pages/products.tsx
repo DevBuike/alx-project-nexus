@@ -5,6 +5,7 @@ import Image from 'next/image';
 import SearchBar from "../components/common/SearchBar";
 import { useCart } from "@/context/CartContext";
 import { ProductList, ProductsResponse } from "@/interface/Products";
+import ProductCard from "@/components/common/ProductCard";
 
 
 
@@ -12,7 +13,7 @@ export async function getServerSideProps(context: { query: { page: any; }; }) {
   const currentPage = parseInt(context.query.page ?? '1', 10);
 
   try {
-    const res = await fetch(`https://alx-project-nexus-psi.vercel.app/api/v1/products/?page=${currentPage}`);
+    const res = await fetch(`https://alx-project-nexus-psi.vercel.app/api/v1/products/?page=${currentPage}&page_size=30`);
     const data: ProductsResponse = await res.json();
     const next = data.links.next ?? null;
     const previous = data.links.previous ?? null;
@@ -101,36 +102,49 @@ export default function ProductsPage({products, count, currentPage, pageSize }: 
   return (
     <main className="min-h-screen py-12 px-6 text-black">
       <div className="max-w-7xl mx-auto">
-        <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">Our Products</h2>
+        <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">All Our Products</h2>
 
         <div className="flex justify-center mb-10">
           <SearchBar onSearch={handleSearch} />
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-2 md:flex flex-wrap gap-y-5 gap-2 lg:gap-x-10">
           {message && <p>{message} </p>}
           {Array.isArray(filteredProducts) && filteredProducts.map((product) => (
-            <Link key={product.id} href={`/products/${product.slug}`} className="block">
-              <div className="relative bg-neutral-50 rounded-lg shadow p-4 flex flex-col items-center text-center hover:shadow-md transition">
-                <Image
-                  src={product.primary_image.image_url}
-                  alt={product.name} width={400} height={450}
-                  className="w-full h-40 object-cover rounded mb-4"
-                />
-                <h3 className="text-lg font-semibold text-gray-800 mb-1">{product.name}</h3>
-                <p className="text-green-600 font-bold mb-2">${product.price}</p>
-                <button
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleAddToCart(product);
-                    alert("Added to cart!");
-                  }}
-                  className="mt-auto bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
-                >
-                  Add to Cart
-                </button>
-              </div>
-            </Link>
+            <div className="flex space-x-6 " >
+              <Link
+                href={`/products/${product.slug}`}
+                className="w-[170px] md:max-w-[220px] h-[320px] bg-neutral-50 rounded-lg shadow p-4 hover:shadow-md transition"
+              >
+                <div className=' mb-4 w-full'>
+                  <img
+                    src={product.primary_image.image_url}
+                    alt={product.name}
+                    className="w-full h-full object-cover mb-2 rounded"
+                  />
+                  <p className="text-sm font-medium text-gray-800 truncate mt-5">{product.name}</p>
+                  <div className='flex items-center justify-between mt-8'>
+                    <p className="text-green-600 font-bold">${product.price}</p>
+                    <button className='hidden md:block px-3 py-1 bg-blue-500 rounded-lg text-white text-sm hover:bg-blue-600 transition' 
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      addToCart(product);
+                    }}>
+                      Add to Cart
+                    </button>
+                  </div>
+                  <button className='md:hidden w-[80%] mt-5 mx-auto px-3 py-1 bg-blue-500 rounded-lg text-white text-sm hover:bg-blue-600 transition' 
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      addToCart(product);
+                    }}>
+                      Add to Cart
+                    </button>
+                </div>
+              </Link>
+            </div>
           ))}
         </div>
         <div className="flex justify-center mt-10 space-x-2">

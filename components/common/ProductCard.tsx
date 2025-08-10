@@ -1,55 +1,39 @@
-/* eslint-disable @next/next/no-img-element */
-import React from "react";
+import Link from 'next/link';
+import Image from 'next/image';
+import { ProductDetail} from "@/interface/Products";
+import { useCart } from "@/context/CartContext";
 
-interface ProductProps {
-  image: string;
-  name: string;
-  price: number;
-  oldPrice?: number;
-  discountPercent?: number;
-  onAddToCart?: () => void;
-}
+const ProductCard = ({product}: {product:ProductDetail}) => {
+  const { addToCart } = useCart();
 
-const ProductCard: React.FC<ProductProps> = ({
-  image,
-  name,
-  price,
-  oldPrice,
-  discountPercent,
-  onAddToCart,
-}) => {
   return (
-    <div className="relative bg-gray-500 rounded shadow-md overflow-hidden w-60 hover:shadow-lg transition">
-      {/* Discount Label */}
-      {discountPercent && (
-        <div className="absolute top-0 right-0 bg-orange-100 text-orange-600 text-xs px-2 py-1 rounded-bl">
-          –{discountPercent}%
+    <div className="flex space-x-6 " >
+      <Link
+        href={`/products/${product.slug}`}
+        className="w-[220px] h-[320px] bg-neutral-50 rounded-lg shadow p-4 hover:shadow-md transition"
+      >
+        <div className=' mb-4 w-full'>
+          <img
+            src={product.primary_image.image_url}
+            alt={product.name}
+            className="w-full h-full object-cover mb-2 rounded"
+          />
+          <p className="text-sm font-medium text-gray-800 truncate mt-5">{product.name}</p>
+          <div className='flex items-center justify-between mt-8'>
+            <p className="text-green-600 font-bold">${product.price}</p>
+            <button className='px-3 py-1 bg-blue-500 rounded-lg text-white text-sm hover:bg-blue-600 transition' 
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              addToCart(product);
+            }}>
+              Add to Cart
+            </button>
+          </div>
         </div>
-      )}
-
-      {/* Product Image */}
-      <img src={image} alt={name} className="w-full h-48 object-cover" />
-
-      {/* Product Info */}
-      <div className="p-3 space-y-1">
-        <p className="text-sm text-gray-800 truncate">{name}</p>
-        <p className="text-lg font-semibold text-black">KSh {price.toLocaleString()}</p>
-        {oldPrice && (
-          <p className="text-sm text-gray-500 line-through">KSh {oldPrice.toLocaleString()}</p>
-        )}
-      </div>
-
-      {/* Add to Cart Button */}
-      <div className="p-3 pt-0">
-        <button
-          onClick={onAddToCart}
-          className="w-full text-sm bg-yellow-400 hover:bg-yellow-500 text-white font-medium py-2 rounded transition"
-        >
-          🛒 Add to Cart
-        </button>
-      </div>
+      </Link>
     </div>
-  );
-};
+  )
+}
 
 export default ProductCard;

@@ -27,7 +27,7 @@ const Header: React.FC<HeaderProps> = ({
 
   return (
     <header className="bg-gray-800 py-4 px-5 md:px-8 shadow-md relative flex items-center justify-between">
-      <h1 className="text-red-300 text-4xl">E-Commerce App</h1>
+      <h1 className="text-red-300 text-4xl">iBuy</h1>
 
       {/* Desktop Navigation */}
       <nav className="hidden md:block mt-4 flex justify-center">

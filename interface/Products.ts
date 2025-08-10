@@ -11,23 +11,12 @@ export interface ProductsResponse {
 
 //each product returned interface and saved as an array in the result value of the api response..
 export interface ProductList {
-  id: number;
-  name: string;
-  slug: string;
-  price: string;
-  primary_image: {
-    image_url: string;
-    alt_text: string;
-  };
-  category: {
-    name: string;
-  };
+  product: ProductDetail;
   quantity: number;
   compare_at_price?: string;
   discount_percentage?: string;
   average_rating?: number;
   inventory_status?: string;
-  is_featured?: boolean;
   created_at?: string;
 }
 
@@ -64,6 +53,7 @@ export interface ProductDetail {
     image_url: string;
     alt_text: string;
   };
+  is_featured: boolean;
 }
 
 export interface CategoryList {
