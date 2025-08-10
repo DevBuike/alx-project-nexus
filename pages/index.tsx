@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import ImageCarousel from "../components/common/ImageCarousel";
@@ -130,11 +131,11 @@ export default function Home({ categories, detailedProducts}: { categories: Cate
         <div className="flex-1">
           <ImageCarousel
             images={[
-              "../public/assets/carousel/img-1.png",
-              "../public/assets/carousel/img-2.png",
-              "../public/assets/carousel/img-3.jpg",
-              "../public/assets/carousel/img-4.jpg",
-              "../public/assets/carousel/img-5.gif",
+              "/assets/carousel/img-1.png",
+              "/assets/carousel/img-2.png",
+              "/assets/carousel/img-3.jpg",
+              "/assets/carousel/img-4.jpg",
+              "/assets/carousel/img-5.gif",
             ]}
           />
         </div>

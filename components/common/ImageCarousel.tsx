@@ -1,15 +1,11 @@
 'use client'
 import { useState, useEffect } from "react";
 
-const images = [
-  "/assets/carousel/img-1.gif",
-  "/assets/carousel/img-2.gif",
-  "/assets/carousel/img-3.gif",
-  "/assets/carousel/img-4.jpg",
-  "/assets/carousel/img-5.gif",
-];
+interface ImageCarouselProps {
+  images: string[];
+}
 
-export default function ImageCarousel() {
+export default function ImageCarousel({ images }: ImageCarouselProps) {
   const [current, setCurrent] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
   const total = images.length;
