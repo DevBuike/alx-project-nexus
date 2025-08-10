@@ -16,9 +16,11 @@ export async function getServerSideProps(context: { query: { page: string; }; })
     const previous = data.links.previous ?? null;
     const pageSize = data.page_size;
 
+    const productList: ProductLists[] = data.results;
+
     return {
       props: {
-        products: data.results,
+        products: productList,
         count: data.count,
         next,
         previous,

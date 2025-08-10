@@ -11,7 +11,17 @@ export interface ProductsResponse {
 
 //each product returned interface and saved as an array in the result value of the api response..
 export interface ProductList {
+  id: number;
+  name: string;
+  slug: string;
+  description: string;
+  price: number;
   product: ProductDetail;
+  primary_image: {
+    id: number;
+    image_url: string;
+    alt_text: string;
+  };
   quantity: number;
   compare_at_price?: string;
   discount_percentage?: string;
