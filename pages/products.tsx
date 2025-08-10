@@ -6,7 +6,7 @@ import { useCart } from "@/context/CartContext";
 import { ProductLists, ProductsResponse } from "@/interface/Products";
 
 
-export async function getServerSideProps(context: { query: { page: any; }; }) {
+export async function getServerSideProps(context: { query: { page: string; }; }) {
   const currentPage = parseInt(context.query.page ?? '1', 10);
 
   try {

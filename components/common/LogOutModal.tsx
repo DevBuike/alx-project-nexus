@@ -25,8 +25,15 @@ export default function LogoutButton() {
       alert('Logged out successfully!');
       window.location.reload(); 
 
-    } catch (error: any) {
-      console.error('Logout failed:', error);
+    }
+      catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        console.error('Logout failed:', error.response?.data || error.message);
+      } else if (error instanceof Error) {
+        console.error('Logout failed:', error.message);
+      } else {
+        console.error('Logout failed:', error);
+      }
       alert('Failed to log out.');
     }
   };

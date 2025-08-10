@@ -1,8 +1,10 @@
-/* eslint-disable @next/next/no-img-element 
+/*
+/* eslint-disable @next/next/no-img-element */
+{/*
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { allProducts } from "../data/Categories";
-import { useCart } from "@/context/CartContext";
+import { useCart } from "@/context/CartContext"; 
 
 export default function ProductDetail() {
   const router = useRouter();
@@ -49,7 +51,8 @@ export default function ProductDetail() {
         </div>
       </div>
     </main>
-  );
-}
+  ); */}
 
-export const dummyData = allProducts;
+
+//export const dummyData = allProducts;
+*/

@@ -29,8 +29,13 @@ export default function LoginModal({ onClose, onSwitch, onLoginSuccess }: LoginM
 
       alert('Login successful!');
       onLoginSuccess(userId);
-    } catch (err: any) {
-      const message = err.response?.data?.message || 'Login failed';
+    } catch (err: unknown) {
+      let message = 'Login failed';
+      if (axios.isAxiosError(err)) {
+        message = err.response?.data?.message || message;
+      } else if (err instanceof Error) {
+        message = err.message;
+      }
       setError(message);
     } finally {
       setLoading(false);

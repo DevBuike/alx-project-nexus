@@ -1,13 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
 
 import { useRouter } from "next/router";
-import {ProductDetail, ProductLists} from "@/interface/Products";
+import {ProductDetail, CategoryList} from "@/interface/Products";
 import { useEffect, useState } from "react";
 import ProductCard from "@/components/common/ProductCard";
 
 export async function getServerSideProps() {
   const products: ProductDetail[] = [];
-  let categories: any[] = [];
+  const categories: CategoryList[] = [];
 
   let productPage = 1;
   let categoryPage = 1;
