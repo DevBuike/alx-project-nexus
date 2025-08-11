@@ -92,7 +92,7 @@ export default function CategoryPage({detailedProducts}: {detailedProducts: Prod
       {products.length === 0 ? (
         <p className="text-gray-600 text-center">No products found in this category.</p>
       ) : (
-        <div className="flex flex-wrap gap-5 mt-10">
+        <div className="flex flex-wrap items-center justify-between gap-5 mt-10">
           {products.map((p) => (
             <ProductCard product={p} key={p.id} />
           ))}
