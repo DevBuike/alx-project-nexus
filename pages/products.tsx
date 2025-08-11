@@ -107,7 +107,7 @@ export default function ProductsPage({products, count, currentPage, pageSize }: 
           <SearchBar onSearch={handleSearch} />
         </div>
 
-        <div className="grid grid-cols-2 md:flex md:flex-wrap gap-y-5 gap-2 lg:gap-x-8">
+        <div className="grid grid-cols-2 md:flex md:flex-wrap md:items-center md:justify-between gap-y-5 gap-2 lg:gap-x-8">
           {message && <p>{message} </p>}
           {Array.isArray(filteredProducts) && filteredProducts.map((product) => (
             
