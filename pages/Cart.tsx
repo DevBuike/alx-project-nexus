@@ -33,7 +33,7 @@ export default function CartPage() {
                     <div className="flex-1">
                       <h2 className="text-lg font-semibold text-gray-800">{item.name}</h2>
                       
-                      <p className="text-green-600 font-bold">
+                      <p className="text-[#56b8b5] font-bold">
                         ${typeof item.price === "string" ? parseFloat(item.price).toFixed(2) : item.price.toFixed(2)}
                       </p>
                       <p className="text-sm text-gray-500">Quantity: {item.quantity}</p>
