@@ -73,49 +73,55 @@ const Header: React.FC<HeaderProps> = ({
       </nav>
 
       {/* Mobile Hamburger */}
-      <CiMenuBurger className="md:hidden text-5xl text-white" onClick={toggleMobileMenu} />
-      {showHamburger && (
-        <nav className="md:hidden mt-4 absolute top-[65px] right-0 p-5 w-full bg-neutral-50 z-50 border border-gray-400 shadow-lg rounded-b-md">
-          <ul className="flex flex-col gap-6 text-2xl items-center">
-            <li><Link href="/" className="text-black hover:text-red-400">Home</Link></li>
-            <li><Link href="/products" className="text-black hover:text-red-400">Products</Link></li>
-            <li>
-              <Link href="/Cart" className="text-black hover:text-red-400 flex items-center gap-1">
-                <ShoppingCartIcon className="h-6 w-6" />
-                <sup className="text-sm">{cart.length}</sup>
-              </Link>
-            </li>
-            <li className="relative">
-              <button
-                className="text-black hover:text-red-400 focus:outline-none flex items-center gap-1"
-                onClick={toggleAccountMenu  }
-                aria-expanded={showAccountMenu}
-              >
-                <UserIcon className="h-6 w-6" />
-              </button>
-              {showAccountMenu && (
-                <div className="mt-2 w-40 text-black bg-neutral-50 border border-gray-300 rounded shadow z-10">
-                  {!isLoggedIn ? (
-                    <>
-                      <button className="block w-full text-left px-4 py-2 text-md hover:bg-gray-100" onClick={() => { onShowLogin(); toggleAccountMenu(); }}>
-                        Login
+      <div className="md:hidden flex items-center justify-between gap-4">
+        <Link href="/Cart" className=" text-white hover:text-red-400 flex items-center gap-1">
+          <ShoppingCartIcon className="h-6 w-6" />
+          <sup className="text-sm">{cart.length}</sup>
+        </Link>
+        <CiMenuBurger className="md:hidden text-3xl text-white" onClick={toggleMobileMenu} />
+        {showHamburger && (
+          <nav className="md:hidden mt-4 absolute top-[65px] right-0 p-5 w-full bg-neutral-50 z-50 border border-gray-400 shadow-lg rounded-b-md">
+            <ul className="flex flex-col gap-6 text-2xl items-center">
+              <li><Link href="/" className="text-black hover:text-red-400">Home</Link></li>
+              <li><Link href="/products" className="text-black hover:text-red-400">Products</Link></li>
+              <li>
+                <Link href="/Cart" className="hidden text-black hover:text-red-400 flex items-center gap-1">
+                  <ShoppingCartIcon className="h-6 w-6" />
+                  <sup className="text-sm">{cart.length}</sup>
+                </Link>
+              </li>
+              <li className="relative">
+                <button
+                  className="text-black hover:text-red-400 focus:outline-none flex items-center gap-1"
+                  onClick={toggleAccountMenu  }
+                  aria-expanded={showAccountMenu}
+                >
+                  <UserIcon className="h-6 w-6" />
+                </button>
+                {showAccountMenu && (
+                  <div className="mt-2 w-40 text-black bg-neutral-50 border border-gray-300 rounded shadow z-10">
+                    {!isLoggedIn ? (
+                      <>
+                        <button className="block w-full text-left px-4 py-2 text-md hover:bg-gray-100" onClick={() => { onShowLogin(); toggleAccountMenu(); }}>
+                          Login
+                        </button>
+                        <button className="block w-full text-left px-4 py-2 text-md hover:bg-gray-100" onClick={() => { onShowSignup(); toggleAccountMenu(); }}>
+                          Sign Up
+                        </button>
+                      </>
+                    ) : (
+                      <button className="block w-full text-left px-4 py-2 text-md hover:bg-gray-100" onClick={() => { onLogout(); toggleAccountMenu(); }}>
+                        Logout
                       </button>
-                      <button className="block w-full text-left px-4 py-2 text-md hover:bg-gray-100" onClick={() => { onShowSignup(); toggleAccountMenu(); }}>
-                        Sign Up
-                      </button>
-                    </>
-                  ) : (
-                    <button className="block w-full text-left px-4 py-2 text-md hover:bg-gray-100" onClick={() => { onLogout(); toggleAccountMenu(); }}>
-                      Logout
-                    </button>
-                  )}
-                  <Link href="/orders" className="block text-black text-md px-4 py-2 hover:bg-gray-100">Orders</Link>
-                </div>
-              )}
-            </li>
-          </ul>
-        </nav>
-      )}
+                    )}
+                    <Link href="/orders" className="block text-black text-md px-4 py-2 hover:bg-gray-100">Orders</Link>
+                  </div>
+                )}
+              </li>
+            </ul>
+          </nav>
+        )}
+      </div>
     </header>
   );
 };
