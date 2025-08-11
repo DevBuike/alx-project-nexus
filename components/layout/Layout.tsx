@@ -65,7 +65,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         />
       )}
 
-      <main>{children}</main>
+      <main className="mt-[40px] pt-[40px] lg:pt-[50px]">{children}</main>
       <Footer />
     </>
   );
