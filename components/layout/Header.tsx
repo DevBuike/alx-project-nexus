@@ -80,7 +80,7 @@ const Header: React.FC<HeaderProps> = ({
         </Link>
         <CiMenuBurger className="md:hidden text-3xl text-white" onClick={toggleMobileMenu} />
         {showHamburger && (
-          <nav className="md:hidden mt-4 absolute top-[65px] right-0 p-5 w-full bg-neutral-50 z-50 border border-gray-400 shadow-lg rounded-b-md">
+          <nav className="md:hidden mt-4 absolute top-[60px] right-0 p-5 w-full bg-neutral-50 z-50 border border-gray-400 shadow-lg rounded-b-md">
             <ul className="flex flex-col gap-6 text-2xl items-center">
               <li><Link href="/" className="text-black hover:text-red-400">Home</Link></li>
               <li><Link href="/products" className="text-black hover:text-red-400">Products</Link></li>
