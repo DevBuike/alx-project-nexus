@@ -27,15 +27,15 @@ const Header: React.FC<HeaderProps> = ({
 
   return (
     <header className="bg-[#56b8b5] py-4 px-5 md:px-8 shadow-md fixed z-50 top-0 flex w-full items-center justify-between">
-      <h1 className="text-red-300 text-4xl">iBuy</h1>
+      <h1 className="text-white text-4xl">iBuy</h1>
 
       {/* Desktop Navigation */}
       <nav className="hidden md:block mt-4 flex justify-center">
         <ul className="flex space-x-6 text-2xl items-center relative">
-          <li><Link href="/" className="text-gray-50 hover:text-red-400">Home</Link></li>
-          <li><Link href="/products" className="text-white hover:text-red-400">Products</Link></li>
+          <li><Link href="/" className="text-gray-50 hover:text-yellow-400">Home</Link></li>
+          <li><Link href="/products" className="text-white hover:text-yellow-400">Products</Link></li>
           <li>
-            <Link href="/Cart" className="text-white hover:text-red-400 flex items-center gap-1">
+            <Link href="/Cart" className="text-white hover:text-yellow-400 flex items-center gap-1">
               <ShoppingCartIcon className="h-6 w-6" />
               <sup className="text-sm">{cart.length}</sup>
             </Link>
