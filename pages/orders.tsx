@@ -101,7 +101,7 @@ export default function Orders() {
                                 />
                                 <div>
                                   <h3 className="font-semibold text-sm text-gray-800">{product.name}</h3> 
-                                  <p className="text-green-600 text-sm font-bold">KSh {product.price.toFixed(2)}</p> 
+                                  <p className="text-green-600 text-sm font-bold">${product.price.toFixed(2)}</p> 
                                   <p className="text-gray-500 text-xs">Qty: {product.quantity}</p>
                                 </div>
                               </div>
