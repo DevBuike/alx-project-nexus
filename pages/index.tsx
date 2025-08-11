@@ -158,7 +158,7 @@ export default function Home({ categories, detailedProducts}: { categories: Cate
               className="px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-yellow-500 max-w-[90px] md:max-w-[170px]"
               onChange={(e) => setMaxPrice(Number(e.target.value))}
             />
-            <button className="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600 transition" onClick={filterProductsByPrice}>
+            <button className="px-4 py-2 bg-[#ffa800] text-white rounded hover:bg-[#ffa800f0] transition" onClick={filterProductsByPrice}>
               Search
             </button>
           </div>
