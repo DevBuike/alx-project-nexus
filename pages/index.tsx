@@ -142,7 +142,7 @@ export default function Home({ categories, detailedProducts}: { categories: Cate
       </div>
 
       {/* Search and Filter Section */}
-      <div className="mt-20">
+      <div className="mt-20 px-3">
         <div className="max-w-[600px] mx-auto md:flex gap-2 items-center mt-8 mb-4">
           <h1 className="text-sm text-gray-800">Filter By Price:</h1>
           <div className="flex items-center gap-4">
