@@ -6,7 +6,7 @@ const Footer = () => {
       <div className="container mx-auto text-center">
         <p>&copy; {new Date().getFullYear()} iBuy. All rights reserved.</p>
         <p>
-          <Link href="#" className="text-gray-400 hover:text-white">
+          <Link href="#" className="text-gray-100 hover:text-white">
             Privacy Policy
           </Link>
         </p>
