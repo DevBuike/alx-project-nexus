@@ -19,7 +19,7 @@ export default function CartPage() {
           <p className="text-gray-600 text-center">Your cart is empty.</p>
         ) : (
           <div className="md:flex gap-3 items-start justify-between">
-            <div className="gap-4 flex md:flex-col items-start justify-between md:w-[70%]">
+            <div className="gap-4 flex flex-col items-start justify-between md:w-[70%]">
               {cart.map((item) => (
                   <div
                     key={item.id}
