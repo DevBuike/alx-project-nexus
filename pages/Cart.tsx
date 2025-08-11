@@ -19,7 +19,7 @@ export default function CartPage() {
           <p className="text-gray-600 text-center">Your cart is empty.</p>
         ) : (
           <div className="md:flex gap-3 items-start justify-between">
-            <div className="gap-4 md:flex md:flex-col items-start justify-between md:w-[70%]">
+            <div className="gap-4 flex md:flex-col items-start justify-between md:w-[70%]">
               {cart.map((item) => (
                   <div
                     key={item.id}
@@ -54,7 +54,7 @@ export default function CartPage() {
               </button>
             </div>
 
-            <div className="bg-neutral-50 rounded-lg shadow p-4 flex flex-col justify-between items-center md:w-[30%]">
+            <div className="bg-neutral-50 mt-5 md:mt-0 rounded-lg shadow p-4 flex flex-col justify-between items-center md:w-[30%]">
               <p className="text-xl font-semibold text-gray-800 flex items-center justify-between w-full">
                 <span>Total:</span> <span>${totalPrice.toLocaleString(undefined, {
                   minimumFractionDigits: 2,
