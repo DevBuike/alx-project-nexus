@@ -26,7 +26,7 @@ const Header: React.FC<HeaderProps> = ({
   const toggleMobileMenu = () => setShowHamburger((prev) => !prev);
 
   return (
-    <header className="bg-gray-800 py-4 px-5 md:px-8 shadow-md relative flex items-center justify-between">
+    <header className="bg-gray-800 py-4 px-5 md:px-8 shadow-md fixed z-50 top-0 flex w-full items-center justify-between">
       <h1 className="text-red-300 text-4xl">iBuy</h1>
 
       {/* Desktop Navigation */}
