@@ -167,7 +167,7 @@ export default function Home({ categories, detailedProducts}: { categories: Cate
 
       {/* featured Products section */}
       <div className="max-w-7xl mx-auto mt-10 bg-[#dfdfdf] py-10 rounded px-2">
-        <h2 className="text-xl lg:text-[30px] text-center font-bold text-gray-800 mb-10">Featured Products</h2>
+        <h2 className="text-xl lg:text-[30px] text-center font-bold text-[#3e9f9c] mb-10">Featured Products</h2>
         <div className="flex gap-4 overflow-x-auto py-5">
           {featured.slice().reverse().map((product) => (
             <ProductCard key={product.id} product={product} />
@@ -184,7 +184,7 @@ export default function Home({ categories, detailedProducts}: { categories: Cate
 
       {/*displaying products based on categories */}
       <div className="mt-20">
-        <h3 className="text-center my-8 text-xl font-semibold">Explore our Categories</h3>
+        <h3 className="text-center text-[#3e9f9c] my-8 text-xl font-semibold">Explore our Categories</h3>
         <CategorySection
         title="Clothing"
         categoryNames={['Jackets', 'Suits', 'Shirts']}
