@@ -20,7 +20,7 @@ const ProductCard = ({product}: {product:ProductDetail}) => {
           />
           <p className="text-sm font-medium text-gray-800 truncate mt-5">{product.name}</p>
           <div className='flex items-center justify-between mt-8'>
-            <p className="text-green-600 font-bold">${product.price}</p>
+            <p className="text-[#3e9f9c] font-bold">${product.price}</p>
             <button className='px-3 py-1 bg-blue-500 rounded-lg text-white text-sm hover:bg-blue-600 transition' 
             onClick={(e) => {
               e.preventDefault();
