@@ -26,7 +26,7 @@ export default function CartPage() {
                     key={item.id}
                     className="relative bg-neutral-50 rounded-lg shadow p-4 flex items-center gap-4 w-full "
                   >
-                    <Image width={25} height={25}
+                    <Image width={96} height={96}
                       src={item.primary_image.image_url}
                       alt={item.primary_image.image_url}
                       className="w-24 h-24 object-cover rounded"
