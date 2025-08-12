@@ -7,7 +7,7 @@ import { ProductList, ProductDetail, CategoryList } from "@/interface/Products";
 import CategorySection from '@/components/common/CategorySection';
 import ProductCard from '@/components/common/ProductCard';
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   const products: ProductList[] = [];
   const categories: ProductList[] = [];
 
@@ -59,6 +59,7 @@ export async function getServerSideProps() {
         products,
         categories,
         detailedProducts,
+        revalidate: 3600,
       }
     };
   } catch (error) {
