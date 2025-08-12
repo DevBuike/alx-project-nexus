@@ -2,6 +2,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { useCart } from "@/context/CartContext";
 import { useRouter } from "next/router";
+import Image from 'next/image';
 
 export default function CheckoutPage() {
   const { cart, clearCart } = useCart();
@@ -37,10 +38,9 @@ export default function CheckoutPage() {
           {cart.map((item) => (
             <div
               key={item.id}
-              className="bg-neutral-50 p-4 rounded-xl shadow flex items-center gap-4"
+              className="relative bg-neutral-50 p-4 rounded-xl shadow flex items-center gap-4"
             >
-              <img
-              
+              <Image width={20} height={20}
                 src={item.primary_image.image_url}
                 alt={item.name}
                 className="w-20 h-20 object-cover rounded"
