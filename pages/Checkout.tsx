@@ -40,7 +40,7 @@ export default function CheckoutPage() {
               key={item.id}
               className="relative bg-neutral-50 p-4 rounded-xl shadow flex items-center gap-4"
             >
-              <Image width={20} height={20}
+              <Image width={80} height={80}
                 src={item.primary_image.image_url}
                 alt={item.name}
                 className="w-20 h-20 object-cover rounded"
