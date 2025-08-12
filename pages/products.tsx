@@ -123,8 +123,8 @@ export default function ProductsPage({products, count, currentPage, pageSize }: 
                   />
                   <p className="text-sm font-medium text-gray-800 truncate mt-5">{product.name}</p>
                   <div className='flex items-center justify-between mt-8'>
-                    <p className="text-green-600 font-bold">${product.price}</p>
-                    <button className='hidden md:block px-3 py-1 bg-blue-500 rounded-lg text-white text-sm hover:bg-blue-600 transition' 
+                    <p className="text-[#56b8b5] font-bold">${product.price}</p>
+                    <button className='hidden md:block px-3 py-1 bg-[#56b8b5] rounded-lg text-white text-sm hover:bg-[#56b8b5f0] transition' 
                     onClick={(e) => {
                       e.preventDefault();
                       e.stopPropagation();
@@ -133,7 +133,7 @@ export default function ProductsPage({products, count, currentPage, pageSize }: 
                       Add to Cart
                     </button>
                   </div>
-                  <button className='md:hidden w-[80%] mt-5 mx-auto px-3 py-1 bg-blue-500 rounded-lg text-white text-sm hover:bg-blue-600 transition' 
+                  <button className='md:hidden w-[80%] mt-5 mx-auto px-3 py-1 bg-[#56b8b5] rounded-lg text-white text-sm hover:bg-[#56b8b5f0] transition' 
                     onClick={(e) => {
                       e.preventDefault();
                       e.stopPropagation();
