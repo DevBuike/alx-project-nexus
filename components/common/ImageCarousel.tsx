@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 'use client'
 import { useState, useEffect } from "react";
+import Image from 'next/image';
 
 interface ImageCarouselProps {
   images: string[];
@@ -44,10 +45,10 @@ export default function ImageCarousel({ images }: ImageCarouselProps) {
             key={index}
             className="min-w-full h-[500px] md:h-[500px] relative"
           >
-            <img
+            <Image fill
               src={src}
               alt={`Slide ${index + 1}`}
-              className="w-full h-full object-cover"
+              className="object-cover"
             />
           </div>
         ))}
