@@ -94,7 +94,7 @@ export default function Orders() {
                                 key={product.id}
                                 className="relative bg-neutral-50 rounded-lg shadow p-4 flex items-center gap-4"
                               >
-                                <Image width={16} height={16}
+                                <Image width={64} height={64}
                                   src={product.primary_image.image_url} 
                                   alt={product.name} 
                                   className="w-16 h-16 object-cover rounded"
