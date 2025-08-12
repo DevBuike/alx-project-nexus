@@ -6,7 +6,7 @@ import { useCart } from "@/context/CartContext";
 import { ProductLists, ProductsResponse } from "@/interface/Products";
 
 
-export async function getServerSideProps(context: { query: { page: string; }; }) {
+export async function getStaticProps(context: { query: { page: string; }; }) {
   const currentPage = parseInt(context.query.page ?? '1', 10);
 
   try {
@@ -26,6 +26,7 @@ export async function getServerSideProps(context: { query: { page: string; }; })
         previous,
         pageSize,
         currentPage: Number(currentPage),
+        revalidate: 3600,
       },
       
     };
