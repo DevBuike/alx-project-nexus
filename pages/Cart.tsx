@@ -62,7 +62,7 @@ export default function CartPage() {
                 })}</span>
               </p>
               <Link href="/Checkout">
-                <button className="bg-[#56b8b5] text-white px-6 py-2 rounded hover:bg-blue-700 mt-8">
+                <button className="bg-[#56b8b5] text-white px-6 py-2 rounded hover:bg-[#56b8b5f0] mt-8">
                   Proceed to Checkout
                 </button>
               </Link>
