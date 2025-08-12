@@ -117,11 +117,11 @@ export default function ProductsPage({products, count, currentPage, pageSize }: 
                 href={`/products/${product.slug}`}
                 className="w-[170px] md:max-w-[220px] lg:w-[310px] h-[320px] bg-neutral-50 rounded-lg shadow p-4 hover:shadow-md transition"
               >
-                <div className=' mb-4 w-full'>
-                  <Image width={500} height={600}
+                <div className=' mb-4 w-full relative'>
+                  <Image fill
                     src={product.primary_image.image_url}
                     alt={product.name}
-                    className="w-full h-full object-cover mb-2 rounded"
+                    className=" object-cover mb-2 rounded"
                   />
                   <p className="text-sm font-medium text-gray-800 truncate mt-5">{product.name}</p>
                   <div className='flex items-center justify-between mt-8'>
