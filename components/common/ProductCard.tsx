@@ -13,7 +13,7 @@ const ProductCard = ({product}: {product:ProductDetail}) => {
         className="w-[220px] h-[320px] bg-neutral-50 rounded-lg shadow p-4 hover:shadow-md transition"
       >
         <div className=' mb-4 w-full'>
-          <img
+          <Image width={500} height={600}
             src={product.primary_image.image_url}
             alt={product.name}
             className="w-full h-full object-cover mb-2 rounded"
