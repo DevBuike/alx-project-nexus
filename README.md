@@ -1,6 +1,6 @@
 # ALX PROJECT NEXUS  
 The project nexus is capstone project for the ALX ProDev FrontEnd Software Engineering course, aimed at showcasing all I've learnt during the course.  
-For my project, i built a dynamic and responsive e-commerce frontend web app, collaboarting with backend dev to consume API's to display products.
+For my project, i built a dynamic and responsive e-commerce frontend web app, collaborating with backend dev to consume API's to display products.
 
 ## Technology
   * Web Development
