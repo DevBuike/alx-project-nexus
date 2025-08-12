@@ -59,7 +59,7 @@ export default function CheckoutPage() {
           <div className="text-right">
             <button
               onClick={handleCheckout}
-              className="bg-[#56b8b5] text-white px-6 py-2 rounded hover:bg-blue-700"
+              className="bg-[#56b8b5] text-white px-6 py-2 rounded hover:bg-[#56b8b5f0]"
             >
               Place Order
             </button>
