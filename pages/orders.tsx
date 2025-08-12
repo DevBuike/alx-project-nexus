@@ -92,9 +92,9 @@ export default function Orders() {
                             {order.products.map((product) => (
                               <div
                                 key={product.id}
-                                className="bg-neutral-50 rounded-lg shadow p-4 flex items-center gap-4"
+                                className="relative bg-neutral-50 rounded-lg shadow p-4 flex items-center gap-4"
                               >
-                                <img
+                                <Image width={16} height={16}
                                   src={product.primary_image.image_url} 
                                   alt={product.name} 
                                   className="w-16 h-16 object-cover rounded"
