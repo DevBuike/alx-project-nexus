@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from 'next/image';
 import SearchBar from "../components/common/SearchBar";
 import { useCart } from "@/context/CartContext";
 import { ProductLists, ProductsResponse } from "@/interface/Products";
@@ -117,7 +118,7 @@ export default function ProductsPage({products, count, currentPage, pageSize }: 
                 className="w-[170px] md:max-w-[220px] lg:w-[310px] h-[320px] bg-neutral-50 rounded-lg shadow p-4 hover:shadow-md transition"
               >
                 <div className=' mb-4 w-full'>
-                  <img
+                  <Image width={500} height={600}
                     src={product.primary_image.image_url}
                     alt={product.name}
                     className="w-full h-full object-cover mb-2 rounded"
