@@ -46,6 +46,7 @@ export default function ImageCarousel({ images }: ImageCarouselProps) {
             className="min-w-full h-[500px] md:h-[500px] relative"
           >
             <Image fill
+              priority={true}
               src={src}
               alt={`Slide ${index + 1}`}
               className="object-cover"
